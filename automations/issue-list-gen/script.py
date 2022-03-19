@@ -5,25 +5,29 @@ import yaml
 
 config = dotenv_values(".env") 
 
-
 def main():
     readYaml("./example.yml")
     #requestDetails("devOps")
     # call here
 
-def requestDetails(repo):
+def requestDetails(repoName):
+    allIssue = []
     gh = Github(config['GH_TOKEN'])
-    repo = gh.get_repo(f"Satriaana/{repo}")
+    repo = gh.get_repo(f"{config['ORG']}/{repoName}")
     open_issues = repo.get_issues(state='open')
 
     for issue in open_issues:
-        print(issue)
+        issueUrl = f"https://github.com/{config['ORG']}/{repoName}/issues/{issue.number}"
+        issueDict = { 'name': repoName, 'issueNumber': issue.number, 'url':issueUrl, 'title':issue.title }
+        allIssue.append(issueDict)
+
+    print(allIssue)
 
 
 def readYaml(yamlfile):
     with open(yamlfile) as file:
         data = yaml.safe_load(file)
-    Projects = data['Satriaana']['Projects']
+    Projects = data[config['ORG']]['Projects']
 
     for i in Projects:
         repos = Projects[i]['Repo-list']
