@@ -1,0 +1,58 @@
+#Optional Contributors are the contributors who are ready to contribute with the call from PM
+
+Satriaana:
+
+  Community-Buildup:
+    CB-Lead: Uvindu
+    Manager: Chamodie, Wasana
+
+    Managers:
+      Uvindu: 
+        PMs: Avishka, Senali, Narthana
+      Chamodie: Dinuru, Amanda, Buddhika, Nimesh, Thanu
+      Wasana: Wenupa, Suraji, Nethmi, Bahu
+
+  Projects:
+    Teseca:
+      mail-group:
+      Project-Manager: Avishka
+      Scrum-Master: Dinuru
+      Teams:
+        Front-End:
+          mail-group:
+          Product-Owner: Amanda
+          Tech-Lead: Wenupa
+          Main-Contributors: Wenupa, Nethmi, Suraji, Amanda, Wasana
+          Optional: Avishka, Nimesh, Thaanu
+          Repo-list:
+        Back-End:
+          mail-group:
+          Product-Owner: Nethmi
+          Tech-Lead: Narthana
+          Main-Contributors: Narthana, Dinuru, Avishka, Sankalpani, Dasith
+          Optional:
+          Repo-list:
+      Project-id:
+      Repo-list:
+      
+    DevOps:
+      mail-group: devops@satriaana.org
+      Project-Manager: Senali
+      Product-Owner: Buddhika
+      Tech-Lead: Avishka
+      Main-Contributors: Uvindu, Senali, Buddhika, Avishka, Dasith
+      Optional: Narthana, Dinuru, Wasana
+      Project-id:
+      Repo-list:
+        - DevOps
+        - team-DevOps
+        - Sat-OS
+
+    FSF:
+      mail-group:
+      Project-Manager: Narthana
+      Product-Owner: Suraji
+      Main-Contributors: Uvindu, Narthana, Senali, Buddhika, Thaanu, Amanda, Nethmi, Wasana, Bahu, Chamodie
+      Optional:
+      Project-id:
+      Repo-list:      
