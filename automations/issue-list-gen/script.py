@@ -4,6 +4,7 @@ from dotenv import dotenv_values
 import yaml
 
 config = dotenv_values(".env") 
+allprojectDetails = {}
 
 def main():
     readYaml("./example.yml")
@@ -21,23 +22,43 @@ def requestDetails(repoName):
         issueDict = { 'name': repoName, 'issueNumber': issue.number, 'url':issueUrl, 'title':issue.title }
         allIssue.append(issueDict)
 
-    print(allIssue)
+    return allIssue
+
+
+def DetailsHandler(repos, projectmanager, mail_group, project):
+
+    """
+    Project
+
+    mailgroup , projectmanager
+    repo -> all issues 
+
+    projectname -> repo[issues] , pm , mailgroup
+    """
+
+    allprojectDetails[projectmanager] = repos
+
+    if not repos:
+        print("nah")
+    else:
+        for id, repo in enumerate(repos):
+            allprojectDetails[projectmanager][id] = requestDetails(repo)
+
+    print(allprojectDetails)
 
 
 def readYaml(yamlfile):
     with open(yamlfile) as file:
         data = yaml.safe_load(file)
+
     Projects = data[config['ORG']]['Projects']
 
     for i in Projects:
         repos = Projects[i]['Repo-list']
+        projectManager = Projects[i]['Project-Manager']
+        mail_group = Projects[i]['mail-group']
+        DetailsHandler(repos , projectManager, mail_group, i )
 
-        if not repos:
-            print("nah")
-        else:
-            for repo in repos:
-                print(repo)
-                requestDetails(repo)
 
 if __name__ == "__main__":
     main()
