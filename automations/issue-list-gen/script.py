@@ -2,9 +2,9 @@
 from github import Github
 from dotenv import dotenv_values
 import yaml
+import pandas as pd
 
 config = dotenv_values(".env") 
-allprojectDetails = {}
 
 def main():
     readYaml("./example.yml")
@@ -25,26 +25,41 @@ def requestDetails(repoName):
     return allIssue
 
 
-def DetailsHandler(repos, projectmanager, mail_group, project):
+def DetailsHandler(repos, projectmanager):
+    allprojectDetails = {}
 
     """
     Project
-
-    mailgroup , projectmanager
-    repo -> all issues 
-
-    projectname -> repo[issues] , pm , mailgroup
+    {"senali" : {issues}}
     """
 
     allprojectDetails[projectmanager] = repos
 
     if not repos:
-        print("nah")
+        #print("no repos found.")
+        print()
     else:
         for id, repo in enumerate(repos):
             allprojectDetails[projectmanager][id] = requestDetails(repo)
 
-    print(allprojectDetails)
+    return allprojectDetails
+
+
+def formatObject(userandissues, projectManager):
+
+    for pm in userandissues:
+        print(f"<h1> {pm} </h1>")
+        if not userandissues[pm]:
+            print("<code> no issues </code>")
+        else:
+            for info in userandissues[pm]:
+                print(f"<h4> <u> {info[0]['name']} </u> </h4>")
+                df = pd.DataFrame(data=info)
+                df = df.fillna(' ')
+                df_print = df[['issueNumber', 'url', 'title']]
+                print(df_print.to_html())
+        print("<hr>")
+
 
 
 def readYaml(yamlfile):
@@ -57,7 +72,8 @@ def readYaml(yamlfile):
         repos = Projects[i]['Repo-list']
         projectManager = Projects[i]['Project-Manager']
         mail_group = Projects[i]['mail-group']
-        DetailsHandler(repos , projectManager, mail_group, i )
+        userandissues = DetailsHandler(repos , projectManager)
+        formatObject(userandissues, projectManager)
 
 
 if __name__ == "__main__":
