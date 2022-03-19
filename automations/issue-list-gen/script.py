@@ -4,12 +4,17 @@ from dotenv import dotenv_values
 import yaml
 import pandas as pd
 
-config = dotenv_values(".env") 
+config = dotenv_values(".env")
+
 
 def main():
     readYaml("./example.yml")
-    #requestDetails("devOps")
-    # call here
+    """
+    requestDetails("devOps")
+    call here
+
+    """
+
 
 def requestDetails(repoName):
     allIssue = []
@@ -19,7 +24,7 @@ def requestDetails(repoName):
 
     for issue in open_issues:
         issueUrl = f"https://github.com/{config['ORG']}/{repoName}/issues/{issue.number}"
-        issueDict = { 'name': repoName, 'issueNumber': issue.number, 'url':issueUrl, 'title':issue.title }
+        issueDict = {'name': repoName, 'issueNumber': issue.number, 'url':issueUrl, 'title':issue.title}
         allIssue.append(issueDict)
 
     return allIssue
@@ -36,7 +41,6 @@ def DetailsHandler(repos, projectmanager):
     allprojectDetails[projectmanager] = repos
 
     if not repos:
-        #print("no repos found.")
         print()
     else:
         for id, repo in enumerate(repos):
@@ -61,7 +65,6 @@ def formatObject(userandissues, projectManager):
         print("<hr>")
 
 
-
 def readYaml(yamlfile):
     with open(yamlfile) as file:
         data = yaml.safe_load(file)
@@ -72,11 +75,9 @@ def readYaml(yamlfile):
         repos = Projects[i]['Repo-list']
         projectManager = Projects[i]['Project-Manager']
         mail_group = Projects[i]['mail-group']
-        userandissues = DetailsHandler(repos , projectManager)
+        userandissues = DetailsHandler(repos, projectManager)
         formatObject(userandissues, projectManager)
 
 
 if __name__ == "__main__":
     main()
-
-
