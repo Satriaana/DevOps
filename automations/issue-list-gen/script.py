@@ -62,13 +62,20 @@ def formatObject(userandissues, projectManager):
             print("<code> no issues </code>")
         else:
             for info in userandissues[pm]:
+                # printing usernmae
                 print(f"<h4> <u> {info[0]['name']} </u> </h4>")
                 df = pd.DataFrame(data=info)
-                df = df.reset_index()
+
+                # embed the url inside a a tag
+                df['url'] = '<a href=' + df['url'] + \
+                    '><div>' + df['url'] + '</div></a>'
                 df_print = df[['issueNumber', 'url', 'title']]
 
+                # output the table
                 print(df_print.style.apply(
-                    highlight_max, color='green', axis=1).hide(axis='index').to_html())
+                    highlight_max, color='green', axis=1).hide(axis='index').to_html(
+                    escape=False,
+                ))
 
         print("<hr>")
 
