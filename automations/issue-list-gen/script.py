@@ -1,4 +1,4 @@
-#/usr/bin/python3
+# /usr/bin/python3
 from github import Github
 from dotenv import dotenv_values
 import yaml
@@ -24,7 +24,8 @@ def requestDetails(repoName):
 
     for issue in open_issues:
         issueUrl = f"https://github.com/{config['ORG']}/{repoName}/issues/{issue.number}"
-        issueDict = {'name': repoName, 'issueNumber': issue.number, 'url':issueUrl, 'title':issue.title}
+        issueDict = {'name': repoName, 'issueNumber': issue.number,
+                     'url': issueUrl, 'title': issue.title}
         allIssue.append(issueDict)
 
     return allIssue
@@ -49,6 +50,10 @@ def DetailsHandler(repos, projectmanager):
     return allprojectDetails
 
 
+def highlight_max(s, color):
+    return ['background-color: yellow' if s.name % 2 else '' for v in s]
+
+
 def formatObject(userandissues, projectManager):
 
     for pm in userandissues:
@@ -59,9 +64,12 @@ def formatObject(userandissues, projectManager):
             for info in userandissues[pm]:
                 print(f"<h4> <u> {info[0]['name']} </u> </h4>")
                 df = pd.DataFrame(data=info)
-                df = df.fillna(' ')
+                df = df.reset_index()
                 df_print = df[['issueNumber', 'url', 'title']]
-                print(df_print.to_html())
+
+                print(df_print.style.apply(
+                    highlight_max, color='green', axis=1).hide(axis='index').to_html())
+
         print("<hr>")
 
 
