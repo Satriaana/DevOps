@@ -10,7 +10,7 @@ config = dotenv_values(".env")
 
 
 def main():
-    readYaml("./example.yml")
+    readYaml("./.data/example.yml")
     """
     requestDetails("devOps")
     call here
