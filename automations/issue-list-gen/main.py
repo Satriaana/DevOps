@@ -2,8 +2,8 @@
 from dotenv import dotenv_values
 import yaml
 
-from details import requestDetails, DetailsHandler
-from utils import highlight_max, formatObject
+from details import DetailsHandler
+from utils import FormatObject
 from sendmail import SendMail
 
 config = dotenv_values(".env")
@@ -29,7 +29,7 @@ def readYaml(yamlfile):
         projectManager = Projects[i]['Project-Manager']
         mail_group = Projects[i]['mail-group']
         userandissues = DetailsHandler(repos, projectManager)
-        payload = formatObject(userandissues, projectManager)
+        payload = FormatObject(userandissues, projectManager)
         SendMail("z9fr@protonmail.com", payload, projectManager)
 
 

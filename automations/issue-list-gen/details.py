@@ -7,7 +7,7 @@ from dotenv import dotenv_values
 config = dotenv_values(".env")
 
 
-def requestDetails(repoName):
+def RequestDetails(repoName):
     allIssue = []
     gh = Github(config['GH_TOKEN'])
     repo = gh.get_repo(f"{config['ORG']}/{repoName}")
@@ -36,6 +36,6 @@ def DetailsHandler(repos, projectmanager):
         print()
     else:
         for id, repo in enumerate(repos):
-            allprojectDetails[projectmanager][id] = requestDetails(repo)
+            allprojectDetails[projectmanager][id] = RequestDetails(repo)
 
     return allprojectDetails

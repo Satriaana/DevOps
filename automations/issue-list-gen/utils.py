@@ -4,11 +4,11 @@ utils
 import pandas as pd
 
 
-def highlight_max(s, color):
+def Highlight_max(s, color):
     return ['background-color: yellow' if s.name % 2 else '' for v in s]
 
 
-def formatObject(userandissues, projectManager):
+def FormatObject(userandissues, projectManager):
     payload = ""
 
     for pm in userandissues:
@@ -28,7 +28,7 @@ def formatObject(userandissues, projectManager):
 
                 # output the table
                 payload += (df_print.style.apply(
-                    highlight_max, color='green', axis=1).hide(axis='index').to_html(
+                    Highlight_max, color='green', axis=1).hide(axis='index').to_html(
                     escape=False,
                 ))
 
